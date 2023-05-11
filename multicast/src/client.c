@@ -9,11 +9,12 @@
 int main(int argc, char **argv) {
     struct sockaddr_in multicastAddr, senderAddr;
     int sockfd;
-    char *multicast_group; 
+    char *multicast_group;
+    char buffer[BUFFER_SIZE];
     int port;
 
     if (argc < 3) {
-        fprintf(stderr, "usage: %s multicast_group port", argv[0]);
+        fprintf(stderr, "usage: %s multicast_group port\n", argv[0]);
         return 1;
     }
 
@@ -47,10 +48,8 @@ int main(int argc, char **argv) {
         return 4;
     }
 
-
     printf("Multicast client started. Receiving packets...\n");
     while (1) {
-        char buffer[BUFFER_SIZE];
         socklen_t senderLen = sizeof(senderAddr);
 
         /* Receive multicast messages */

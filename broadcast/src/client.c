@@ -12,8 +12,8 @@ int main(int argc, char **argv) {
     socklen_t clientLen;
     char buffer[BUFFER_SIZE];
 
-    if (argc < 3) {
-        fprintf(stderr, "usage: %s port", argv[0]);
+    if (argc < 2) {
+        fprintf(stderr, "usage: %s port\n", argv[0]);
         return 1;
     }
 
@@ -48,7 +48,7 @@ int main(int argc, char **argv) {
         }
 
         buffer[recvBytes] = '\0';
-        printf("Received message from (%s, %d): %s\n", inet_ntoa(senderAddr.sin_addr), senderAddr.sin_port, buffer);
+        printf("Received message from (%s, %d): %s\n", inet_ntoa(clientAddr.sin_addr), clientAddr.sin_port, buffer);
     }
 
     /* Close the socket */

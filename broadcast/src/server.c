@@ -10,8 +10,8 @@ int main(int argc, char **argv) {
     const char *buffer = "Hello, broadcast!";
     int broadcastEnable = 1;
 
-    if (argc < 3) {
-        fprintf(stderr, "usage: %s port", argv[0]);
+    if (argc < 2) {
+        fprintf(stderr, "usage: %s port\n", argv[0]);
         return 1;
     }
 

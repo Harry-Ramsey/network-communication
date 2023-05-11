@@ -7,11 +7,11 @@
 int main(int argc, char **argv) {
     int sockfd, port;
     struct sockaddr_in multicastAddr;
-    const char *buffer = "Hello, broadcast!";
+    const char *buffer = "Hello, multicast!";
     char *multicast_group;
 
     if (argc < 3) {
-        fprintf(stderr, "usage: %s multicast_group port", argv[0]);
+        fprintf(stderr, "usage: %s multicast_group port\n", argv[0]);
         return 1;
     }
 
