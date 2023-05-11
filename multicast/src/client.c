@@ -48,22 +48,20 @@ int main(int argc, char **argv) {
     }
 
 
-    printf("Multicast client started. Receiving messages...\n");
+    printf("Multicast client started. Receiving packets...\n");
     while (1) {
         char buffer[BUFFER_SIZE];
         socklen_t senderLen = sizeof(senderAddr);
 
-        // Receive multicast messages
-        ssize_t recvBytes = recvfrom(sockfd, buffer, BUFFER_SIZE, 0, (struct sockaddr *)&senderAddr, &senderLen);
+        /* Receive multicast messages */
+        ssize_t recvBytes = recvfrom(sockfd, buffer, BUFFER_SIZE - 1, 0, (struct sockaddr *)&senderAddr, &senderLen);
         if (recvBytes < 0) {
-            perror("Receive error");
+            perror("Multicast packet received failed");
             return 5;
         }
 
         buffer[recvBytes] = '\0';
         printf("Received message from (%s, %d): %s\n", inet_ntoa(senderAddr.sin_addr), senderAddr.sin_port, buffer);
-
-        sleep(5);
     }
 
     /* Close the socket */

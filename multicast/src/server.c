@@ -5,10 +5,10 @@
 #include <unistd.h>
 
 int main(int argc, char **argv) {
+    int sockfd, port;
     struct sockaddr_in multicastAddr;
-    int sockfd;
+    const char *buffer = "Hello, broadcast!";
     char *multicast_group;
-    int port;
 
     if (argc < 3) {
         fprintf(stderr, "usage: %s multicast_group port", argv[0]);
@@ -39,15 +39,14 @@ int main(int argc, char **argv) {
         return 3;
     }
 
-    printf("Multicast server started. Sending messages...\n");
+    printf("Multicast server started. Sending packets...\n");
     while (1) {
-        /* Send multicast message */
-        const char *message = "Hello World";
-        if (sendto(sockfd, message, strlen(message), 0, (struct sockaddr *)&multicastAddr, sizeof(multicastAddr)) < 0) {
-            perror("Send multicast message failed");
+        /* Send multicast buffer */
+        if (sendto(sockfd, buffer, strlen(buffer), 0, (struct sockaddr *)&multicastAddr, sizeof(multicastAddr)) < 0) {
+            perror("Send multicast packet failed");
             return 4;
         }
-        printf("Sent multicast message.\n");
+        printf("Sent multicast packet.\n");
 
         sleep(5);
     }
